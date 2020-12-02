@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Cdn Axios -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.js"
+      integrity="sha512-bYkaBWaFtfPIMYt9+CX/4DWgfrjcHinjerNYxQmQx1VM76eUsPPKZa5zWV8KksVkBF/DaHSADCwil2J5Uq2ctA=="
+      crossorigin="anonymous"
+    ></script>
+    <!-- Cdn VUE -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Boolflix</title>
+  </head>
+  <body>
+    <!-- Contenitore app vue -->
+    <div id="app">
+      <!-- Header con logo e ricerca -->
+      <header>
+        <div id="logo">
+          <h3>BOOLFLIX</h3>
+        </div>
+        <div id="search">
+          <input
+            type="text"
+            placeholder="Search Movies or TV"
+            v-model="searchInput"
+            @keypress.enter="searchFilm"
+          />
+        </div>
+      </header>
+
+      <!-- sezione risultati -->
+      <main id="result-section">
+        <div class="results" v-for="movie in moviesArray">
+          <h4>{{movie.title}}</h4>
+          <h4>{{movie.original_title}}</h4>
+          <h4>{{movie.original_language}}</h4>
+          <h4>{{movie.vote_average}}</h4>
+        </div>
+      </main>
+    </div>
+    <script src="js/script.js"></script>
+  </body>
+</html>
