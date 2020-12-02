@@ -11,7 +11,12 @@
     ></script>
     <!-- Cdn VUE -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
-
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="css/style.css" />
     <title>Boolflix</title>
   </head>
@@ -33,13 +38,69 @@
         </div>
       </header>
 
-      <!-- sezione risultati -->
+      <!-- sezione risultati film -->
       <main id="result-section">
-        <div class="results" v-for="movie in moviesArray">
+        <div
+          class="results"
+          v-for="movie in moviesArray"
+          v-for="show in showsArray"
+        >
           <h4>{{movie.title}}</h4>
           <h4>{{movie.original_title}}</h4>
           <h4>{{movie.original_language}}</h4>
-          <h4>{{movie.vote_average}}</h4>
+          <h4>{{Math.ceil(movie.vote_average / 2)}}</h4>
+          <i
+            :class="(Math.ceil(movie.vote_average / 2) >=1) ? 'star' : ''"
+            class="fas fa-star"
+          ></i>
+          <i
+            class="fas fa-star"
+            :class="(Math.ceil(movie.vote_average / 2) >= 2) ? 'star' : ''"
+          ></i>
+          <i
+            class="fas fa-star"
+            :class="(Math.ceil(movie.vote_average / 2) >= 3) ? 'star' : ''"
+          ></i>
+          <i
+            class="fas fa-star"
+            :class="(Math.ceil(movie.vote_average / 2) >= 4) ? 'star' : ''"
+          ></i>
+          <i
+            class="fas fa-star"
+            :class="(Math.ceil(movie.vote_average / 2) >= 5) ? 'star' : ''"
+          ></i>
+          <img class="flag" :src="whatFlag(movie)" alt="flag" />
+        </div>
+      </main>
+
+      <!-- sezione risultati serie tv -->
+      <main id="result-section">
+        <div class="results" v-for="show in showsArray">
+          <h4>{{show.name}}</h4>
+          <h4>{{show.original_name}}</h4>
+          <h4>{{show.original_language}}</h4>
+          <h4>{{Math.ceil(show.vote_average / 2)}}</h4>
+          <i
+            :class="(Math.ceil(show.vote_average / 2) >=1) ? 'star' : ''"
+            class="fas fa-star"
+          ></i>
+          <i
+            class="fas fa-star"
+            :class="(Math.ceil(show.vote_average / 2) >= 2) ? 'star' : ''"
+          ></i>
+          <i
+            class="fas fa-star"
+            :class="(Math.ceil(show.vote_average / 2) >= 3) ? 'star' : ''"
+          ></i>
+          <i
+            class="fas fa-star"
+            :class="(Math.ceil(show.vote_average / 2) >= 4) ? 'star' : ''"
+          ></i>
+          <i
+            class="fas fa-star"
+            :class="(Math.ceil(show.vote_average / 2) >= 5) ? 'star' : ''"
+          ></i>
+          <img class="flag" :src="whatFlag(show)" alt="flag" />
         </div>
       </main>
     </div>
