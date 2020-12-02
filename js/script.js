@@ -13,12 +13,15 @@ var app = new Vue({
   },
   methods: {
     searchFilm() {
-      axios.get(movieDb + this.searchInput).then((response) => {
-        const results = response.data.results;
-        console.log(results);
-        this.moviesArray = results;
-        console.log(this.moviesArray);
-      });
+      if (this.searchInput !== "") {
+        axios.get(movieDb + this.searchInput).then((response) => {
+          const results = response.data.results;
+          console.log(results);
+          this.moviesArray = results;
+          console.log(this.moviesArray);
+          this.searchInput = "";
+        });
+      }
     },
   },
   mounted() {},

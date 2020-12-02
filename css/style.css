@@ -6,7 +6,7 @@
 
 #app {
   width: 100%;
-
+  height: 100vh;
   /* debug */
   background-color: black;
 }
@@ -31,10 +31,12 @@ header {
 
 #result-section {
   width: 100%;
+  /* min-height: 100vh; */
   padding: 0 15px;
   display: flex;
   flex-wrap: wrap;
   margin-top: 100px;
+  background-color: black;
   /* justify-content: space-around; */
 }
 
