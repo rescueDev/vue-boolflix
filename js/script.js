@@ -26,6 +26,8 @@ var app = new Vue({
     ],
     posterPath: "https://image.tmdb.org/t/p/w185",
     noFlag: "img/noflag.jpg",
+    noPoster: "img/missing.png",
+    indexSelected: "",
   },
   methods: {
     searchFilm() {
@@ -34,14 +36,19 @@ var app = new Vue({
           const results = response.data.results;
           //console.log(results);
           this.moviesArray = results;
-
-          //console.log(this.moviesArray);
+          this.moviesArray.forEach((element) => {
+            element.hover = false;
+          });
+          console.log(this.moviesArray);
           this.searchInput = "";
         });
         axios.get(showsDb + this.searchInput).then((response) => {
           const results = response.data.results;
           //console.log(results);
           this.showsArray = results;
+          this.moviesArray.forEach((element) => {
+            element.hover = false;
+          });
           console.log(this.showsArray);
         });
       }
@@ -65,16 +72,45 @@ var app = new Vue({
         return this.noFlag;
       }
     },
-    // whatFlag(movie, indice) {
-    //   if (movie.original_language === "en") {
-    //     return this.languageFlag[1];
-    //   } else if (movie.original_language === "it") {
-    //     return this.languageFlag[0];
-    //   } else if (movie.original_language === "de") {
-    //     return this.languageFlag[2];
-    //   } else if (movie.original_language === "es") {
-    //     return this.languageFlag[3];
+    // showInfo(serie, indice) {
+    //   if (serie[indice].hover === true) {
+    //     return "hover";
+    //   } else {
+    //     return "";
     //   }
+    // },
+    // movieInfo(indice) {
+    //   if (indice.hover === true) {
+    //     return "hover";
+    //   } else {
+    //     return "";
+    //   }
+    // },
+    // overPoster(indice) {
+    //   indice.hover = true;
+    //   console.log(this.moviesArray);
+    // },
+    // outPoster(indice) {
+    //   indice.hover = false;
+    //   console.log(this.moviesArray);
+    // },
+    // index(indice) {
+    //   this.indexSelected = indice;
+    // },
+    provaHover(movie, indice) {
+      this.indexSelected = indice;
+      movie.hover = !movie.hover;
+      console.log(this.moviesArray);
+      console.log(this.indexSelected);
+      console.log(movie.hover);
+    },
+    esciHover(movie, indice) {
+      movie.hover = !movie.hover;
+    },
+
+    // provaEsciHover(movie) {
+    //   movie.hover = !movie.hover;
+    //   console.log(this.moviesArray);
     // },
   },
   mounted() {},

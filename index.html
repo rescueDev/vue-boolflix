@@ -39,66 +39,108 @@
       </header>
 
       <!-- sezione risultati film -->
-      <main id="result-section">
-        <div class="results" v-for="movie in moviesArray">
-          <img :src="posterPath + movie.poster_path" alt="poster" />
-          <h4>{{movie.title}}</h4>
-          <h4>{{movie.original_title}}</h4>
-          <h4>{{movie.original_language}}</h4>
-          <h4>{{Math.ceil(movie.vote_average / 2)}}</h4>
-          <i
-            :class="(Math.ceil(movie.vote_average / 2) >=1) ? 'star' : ''"
-            class="fas fa-star"
-          ></i>
-          <i
-            class="fas fa-star"
-            :class="(Math.ceil(movie.vote_average / 2) >= 2) ? 'star' : ''"
-          ></i>
-          <i
-            class="fas fa-star"
-            :class="(Math.ceil(movie.vote_average / 2) >= 3) ? 'star' : ''"
-          ></i>
-          <i
-            class="fas fa-star"
-            :class="(Math.ceil(movie.vote_average / 2) >= 4) ? 'star' : ''"
-          ></i>
-          <i
-            class="fas fa-star"
-            :class="(Math.ceil(movie.vote_average / 2) >= 5) ? 'star' : ''"
-          ></i>
-          <img class="flag" :src="whatFlag(movie)" alt="flag" />
+      <main class="result-section">
+        <div
+          class="results"
+          v-for="(movie, indice) in moviesArray"
+          @mouseover="provaHover(movie, indice)"
+          @mouseleave="esciHover(movie, indice)"
+        >
+          <img
+            class="poster"
+            :src="posterPath + movie.poster_path"
+            alt="poster"
+            v-show="movie.poster_path !== null"
+          />
+          <img
+            class="no-poster"
+            v-show="movie.poster_path === null"
+            :src="noPoster"
+            alt="no poster"
+          />
+
+          <div
+            class="info"
+            :class="indexSelected === indice ? 'hover' : 'none' "
+          >
+            <h4>{{movie.title}}</h4>
+            <h4>{{movie.original_title}}</h4>
+            <h4>{{movie.original_language}}</h4>
+            <h4>{{Math.ceil(movie.vote_average / 2)}}</h4>
+            <i
+              :class="(Math.ceil(movie.vote_average / 2) >=1) ? 'star' : ''"
+              class="fas fa-star"
+            ></i>
+            <i
+              class="fas fa-star"
+              :class="(Math.ceil(movie.vote_average / 2) >= 2) ? 'star' : ''"
+            ></i>
+            <i
+              class="fas fa-star"
+              :class="(Math.ceil(movie.vote_average / 2) >= 3) ? 'star' : ''"
+            ></i>
+            <i
+              class="fas fa-star"
+              :class="(Math.ceil(movie.vote_average / 2) >= 4) ? 'star' : ''"
+            ></i>
+            <i
+              class="fas fa-star"
+              :class="(Math.ceil(movie.vote_average / 2) >= 5) ? 'star' : ''"
+            ></i>
+            <img class="flag" :src="whatFlag(movie)" alt="flag" />
+          </div>
         </div>
       </main>
 
       <!-- sezione risultati serie tv -->
-      <main id="result-section">
-        <div class="results" v-for="show in showsArray">
-          <img :src="posterPath + show.poster_path" alt="poster" />
-          <h4>{{show.name}}</h4>
-          <h4>{{show.original_name}}</h4>
-          <h4>{{show.original_language}}</h4>
-          <h4>{{Math.ceil(show.vote_average / 2)}}</h4>
-          <i
-            :class="(Math.ceil(show.vote_average / 2) >=1) ? 'star' : ''"
-            class="fas fa-star"
-          ></i>
-          <i
-            class="fas fa-star"
-            :class="(Math.ceil(show.vote_average / 2) >= 2) ? 'star' : ''"
-          ></i>
-          <i
-            class="fas fa-star"
-            :class="(Math.ceil(show.vote_average / 2) >= 3) ? 'star' : ''"
-          ></i>
-          <i
-            class="fas fa-star"
-            :class="(Math.ceil(show.vote_average / 2) >= 4) ? 'star' : ''"
-          ></i>
-          <i
-            class="fas fa-star"
-            :class="(Math.ceil(show.vote_average / 2) >= 5) ? 'star' : ''"
-          ></i>
-          <img class="flag" :src="whatFlag(show)" alt="flag" />
+      <main class="result-section">
+        <div
+          class="results"
+          v-for="(show, indice) in showsArray"
+          @mouseover="provaHover(show, indice)"
+          @mouseleave="esciHover(show, indice)"
+        >
+          <img
+            :src="posterPath + show.poster_path"
+            alt="poster"
+            v-show="show.poster_path !== null"
+          />
+          <img
+            class="no-poster"
+            v-show="show.poster_path === null"
+            :src="noPoster"
+            alt="no poster"
+          />
+          <div
+            class="info"
+            :class="indexSelected === indice ? 'hover' : 'none' "
+          >
+            <h4>{{show.name}}</h4>
+            <h4>{{show.original_name}}</h4>
+            <h4>{{show.original_language}}</h4>
+            <h4>{{Math.ceil(show.vote_average / 2)}}</h4>
+            <i
+              :class="(Math.ceil(show.vote_average / 2) >=1) ? 'star' : ''"
+              class="fas fa-star"
+            ></i>
+            <i
+              class="fas fa-star"
+              :class="(Math.ceil(show.vote_average / 2) >= 2) ? 'star' : ''"
+            ></i>
+            <i
+              class="fas fa-star"
+              :class="(Math.ceil(show.vote_average / 2) >= 3) ? 'star' : ''"
+            ></i>
+            <i
+              class="fas fa-star"
+              :class="(Math.ceil(show.vote_average / 2) >= 4) ? 'star' : ''"
+            ></i>
+            <i
+              class="fas fa-star"
+              :class="(Math.ceil(show.vote_average / 2) >= 5) ? 'star' : ''"
+            ></i>
+            <img class="flag" :src="whatFlag(show)" alt="flag" />
+          </div>
         </div>
       </main>
     </div>
