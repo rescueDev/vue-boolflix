@@ -40,11 +40,8 @@
 
       <!-- sezione risultati film -->
       <main id="result-section">
-        <div
-          class="results"
-          v-for="movie in moviesArray"
-          v-for="show in showsArray"
-        >
+        <div class="results" v-for="movie in moviesArray">
+          <img :src="posterPath + movie.poster_path" alt="poster" />
           <h4>{{movie.title}}</h4>
           <h4>{{movie.original_title}}</h4>
           <h4>{{movie.original_language}}</h4>
@@ -76,6 +73,7 @@
       <!-- sezione risultati serie tv -->
       <main id="result-section">
         <div class="results" v-for="show in showsArray">
+          <img :src="posterPath + show.poster_path" alt="poster" />
           <h4>{{show.name}}</h4>
           <h4>{{show.original_name}}</h4>
           <h4>{{show.original_language}}</h4>

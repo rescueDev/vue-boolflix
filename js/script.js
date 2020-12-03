@@ -24,6 +24,7 @@ var app = new Vue({
       "img/portugal.png",
       "img/china.png",
     ],
+    posterPath: "https://image.tmdb.org/t/p/w185",
     noFlag: "img/noflag.jpg",
   },
   methods: {
@@ -58,7 +59,7 @@ var app = new Vue({
         return this.languageFlag[4];
       } else if (movie.original_language === "ja") {
         return this.languageFlag[5];
-      } else if (movie.original_language === "po") {
+      } else if (movie.original_language === "pt") {
         return this.languageFlag[6];
       } else {
         return this.noFlag;
