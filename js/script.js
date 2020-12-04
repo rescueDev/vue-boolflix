@@ -1,10 +1,11 @@
 //Boolflix
 //creo una copia di Netflix, parto creando un api-key dal sito di themoviedb.org e interrogo con axios l'api
 
-//creo variabile con il valore dell'api
+//creo variabile con il valore dell'api movies
 const movieDb =
   "https://api.themoviedb.org/3/search/movie?api_key=a7c4877ed2ef5089283e2a5845b4c723&query=";
 
+//creo variabile con il valore dell'api shows
 const showsDb =
   "https://api.themoviedb.org/3/search/tv?api_key=a7c4877ed2ef5089283e2a5845b4c723&query=";
 
@@ -29,8 +30,11 @@ var app = new Vue({
     noPoster: "img/missing.png",
     indexMovies: "",
     indexShows: "",
+    showFilmSection: false,
+    showShowsSection: false,
   },
   methods: {
+    //funzione che chiama dall'api sia i film che gli shows
     searchFilm() {
       if (this.searchInput !== "") {
         axios.get(movieDb + this.searchInput).then((response) => {
@@ -40,8 +44,12 @@ var app = new Vue({
           this.moviesArray.forEach((element) => {
             element.hover = false;
           });
-          console.log(this.moviesArray);
+          //console.log(this.moviesArray);
           this.searchInput = "";
+          //controllo se l'array ha elementi, se si allora faccio apparire l'intestazione della sezione
+          if (this.moviesArray.length > 0) {
+            this.showFilmSection = true;
+          }
         });
         axios.get(showsDb + this.searchInput).then((response) => {
           const results = response.data.results;
@@ -50,10 +58,15 @@ var app = new Vue({
           this.showsArray.forEach((element) => {
             element.hover = false;
           });
-          console.log(this.showsArray);
+          //console.log(this.showsArray);
+          //controllo se l'array ha elementi, se si allora faccio apparire l'intestazione della sezione
+          if (this.showsArray.length > 0) {
+            this.showShowsSection = true;
+          }
         });
       }
     },
+    //funzione per contrallare che bandiera assegnare in base alla lingua
     whatFlag: function (movie) {
       if (movie.original_language === "en") {
         return this.languageFlag[1];
@@ -73,11 +86,12 @@ var app = new Vue({
         return this.noFlag;
       }
     },
-
+    //funzione per mostrare all'hover i dettagli film
     provaHover(movie, indice) {
       this.indexMovies = indice;
       movie.hover = !movie.hover;
     },
+    //funzione per uscire dall'hover film
     esciHover(movie, indice) {
       this.indexMovies = indice;
       movie.hover = !movie.hover;
@@ -87,11 +101,12 @@ var app = new Vue({
 
       console.log(movie.hover);
     },
+    //funzione per mostrare all'hover i dettagli show
     hoverShow(show, indice) {
       this.indexShows = indice;
-
       movie.hover = !movie.hover;
     },
+    //funzione per uscire dall'hover show
     leaveShow(show, indice) {
       this.indexShows = indice;
       show.hover = !show.hover;

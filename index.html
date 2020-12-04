@@ -11,6 +11,12 @@
     ></script>
     <!-- Cdn VUE -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <!-- Google Font Lato -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
@@ -39,7 +45,8 @@
       </header>
 
       <!-- sezione risultati film -->
-      <main id="risultati-film" class="result-section">
+      <main class="result-section">
+        <h2 v-show="showFilmSection">Movies</h2>
         <div
           class="results"
           v-for="(movie, indice) in moviesArray"
@@ -60,42 +67,49 @@
           />
 
           <div class="info" :class="indexMovies === indice ? 'hover' : 'none' ">
-            <h5>Titolo: <span class="span">{{movie.title}}</span></h5>
-            <h5>
-              Titolo originale:
-              <span class="span">{{movie.original_title}}</span>
-            </h5>
-            <h4>{{movie.original_language}}</h4>
-            <h4>{{Math.ceil(movie.vote_average / 2)}}</h4>
-            <span>Voto:</span>
-            <i
-              :class="(Math.ceil(movie.vote_average / 2) >=1) ? 'star' : ''"
-              class="fas fa-star"
-            ></i>
-            <i
-              class="fas fa-star"
-              :class="(Math.ceil(movie.vote_average / 2) >= 2) ? 'star' : ''"
-            ></i>
-            <i
-              class="fas fa-star"
-              :class="(Math.ceil(movie.vote_average / 2) >= 3) ? 'star' : ''"
-            ></i>
-            <i
-              class="fas fa-star"
-              :class="(Math.ceil(movie.vote_average / 2) >= 4) ? 'star' : ''"
-            ></i>
-            <i
-              class="fas fa-star"
-              :class="(Math.ceil(movie.vote_average / 2) >= 5) ? 'star' : ''"
-            ></i>
+            <div class="titolo">
+              <h4>Titolo: <span class="span">{{movie.title}}</span></h4>
+              <h5>
+                Titolo originale:
+                <span class="span">{{movie.original_title}}</span>
+              </h5>
+            </div>
+
+            <!-- <h4>{{movie.original_language}}</h4> -->
+            <!-- <h4>{{Math.ceil(movie.vote_average / 2)}}</h4> -->
             <img class="flag" :src="whatFlag(movie)" alt="flag" />
-            <h6>Overview: <span class="span">{{movie.overview}}</span></h6>
+            <div class="voto">
+              <span>Voto:</span>
+              <i
+                :class="(Math.ceil(movie.vote_average / 2) >=1) ? 'star' : ''"
+                class="fas fa-star"
+              ></i>
+              <i
+                class="fas fa-star"
+                :class="(Math.ceil(movie.vote_average / 2) >= 2) ? 'star' : ''"
+              ></i>
+              <i
+                class="fas fa-star"
+                :class="(Math.ceil(movie.vote_average / 2) >= 3) ? 'star' : ''"
+              ></i>
+              <i
+                class="fas fa-star"
+                :class="(Math.ceil(movie.vote_average / 2) >= 4) ? 'star' : ''"
+              ></i>
+              <i
+                class="fas fa-star"
+                :class="(Math.ceil(movie.vote_average / 2) >= 5) ? 'star' : ''"
+              ></i>
+            </div>
+
+            <h6>Overview: <span class="overview">{{movie.overview}}</span></h6>
           </div>
         </div>
       </main>
 
       <!-- sezione risultati serie tv -->
-      <main id="risultati-shows" class="result-section">
+      <main class="result-section">
+        <h2 v-show="showShowsSection">Shows</h2>
         <div
           class="results"
           v-for="(show, indice) in showsArray"
@@ -114,34 +128,42 @@
             alt="no poster"
           />
           <div class="info" :class="indexShows === indice ? 'hover' : 'none' ">
-            <h5>Titolo: <span class="span">{{show.name}}</span></h5>
-            <h5>
-              Titolo originale: <span class="span">{{show.original_name}}</span>
-            </h5>
-            <h4>{{show.original_language}}</h4>
-            <h4>{{Math.ceil(show.vote_average / 2)}}</h4>
-            <i
-              :class="(Math.ceil(show.vote_average / 2) >=1) ? 'star' : ''"
-              class="fas fa-star"
-            ></i>
-            <i
-              class="fas fa-star"
-              :class="(Math.ceil(show.vote_average / 2) >= 2) ? 'star' : ''"
-            ></i>
-            <i
-              class="fas fa-star"
-              :class="(Math.ceil(show.vote_average / 2) >= 3) ? 'star' : ''"
-            ></i>
-            <i
-              class="fas fa-star"
-              :class="(Math.ceil(show.vote_average / 2) >= 4) ? 'star' : ''"
-            ></i>
-            <i
-              class="fas fa-star"
-              :class="(Math.ceil(show.vote_average / 2) >= 5) ? 'star' : ''"
-            ></i>
+            <div class="titolo">
+              <h4>Titolo: <span class="span">{{show.name}}</span></h4>
+              <h5>
+                Titolo originale:
+                <span class="span">{{show.original_name}}</span>
+              </h5>
+            </div>
+
+            <!-- <h4>{{show.original_language}}</h4> -->
+            <!-- <h4>{{Math.ceil(show.vote_average / 2)}}</h4> -->
             <img class="flag" :src="whatFlag(show)" alt="flag" />
-            <h6>Overview: <span class="span">{{show.overview}}</span></h6>
+            <div class="voto">
+              <span>Voto: </span>
+              <i
+                :class="(Math.ceil(show.vote_average / 2) >=1) ? 'star' : ''"
+                class="fas fa-star"
+              ></i>
+              <i
+                class="fas fa-star"
+                :class="(Math.ceil(show.vote_average / 2) >= 2) ? 'star' : ''"
+              ></i>
+              <i
+                class="fas fa-star"
+                :class="(Math.ceil(show.vote_average / 2) >= 3) ? 'star' : ''"
+              ></i>
+              <i
+                class="fas fa-star"
+                :class="(Math.ceil(show.vote_average / 2) >= 4) ? 'star' : ''"
+              ></i>
+              <i
+                class="fas fa-star"
+                :class="(Math.ceil(show.vote_average / 2) >= 5) ? 'star' : ''"
+              ></i>
+            </div>
+
+            <h5>Overview: <span class="overview">{{show.overview}}</span></h5>
           </div>
         </div>
       </main>

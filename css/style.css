@@ -2,6 +2,11 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+}
+
+body {
+  background-color: black;
 }
 
 .flag {
@@ -19,7 +24,7 @@
 header {
   width: 100%;
   height: 80px;
-  padding: 0 15px;
+  padding: 0 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -33,48 +38,60 @@ header {
 
 input {
   height: 30px;
+  padding-left: 15px;
 }
 
 .result-section {
-  width: 100%;
-  /* min-height: 100vh; */
+  width: 80%;
+
   padding: 0 15px;
   display: flex;
   flex-wrap: wrap;
-  margin-top: 100px;
+  margin: 20px auto;
   background-color: black;
-  /* justify-content: space-around; */
+}
+
+.result-section h2 {
+  width: 100%;
+  color: white;
+  font-size: 30px;
+  margin-left: 10px;
 }
 
 .results {
-  color: wheat;
   /* background-color: wheat; */
   text-align: center;
   border: 1px solid white;
-  margin: 10px;
+  margin: 20px;
   display: flex;
   position: relative;
 }
 
-.poster {
-  height: 100%;
-}
-
 .star {
-  color: yellow;
+  color: rgb(255, 217, 0);
 }
 
 .info {
   position: absolute;
   width: 100%;
   height: 100%;
-  text-align: left;
+  text-align: center;
+  color: white;
 }
 
-.span {
-  color: wheat;
+.info .titolo {
+  padding: 10px;
+  line-height: 20px;
 }
 
+.info .span {
+  color: white;
+}
+
+.voto {
+  width: 100%;
+  padding: 5px 0;
+}
 .none {
   display: none;
 }
@@ -92,4 +109,14 @@ input {
 .hover {
   display: block;
   background-color: rgba(0, 0, 0, 0.808);
+}
+
+.overview {
+  text-align: center;
+  max-height: 80px;
+  display: inline-block;
+  width: 150px;
+  overflow: hidden;
+  white-space: wrap;
+  text-overflow: ellipsis;
 }
