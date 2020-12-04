@@ -81,19 +81,23 @@ var app = new Vue({
     esciHover(movie, indice) {
       this.indexMovies = indice;
       movie.hover = !movie.hover;
-
-      this.indexMovies = "";
+      setTimeout(() => {
+        this.indexMovies = "";
+      }, 1000);
 
       console.log(movie.hover);
     },
     hoverShow(show, indice) {
       this.indexShows = indice;
-      show.hover = !show.hover;
+
+      movie.hover = !movie.hover;
     },
     leaveShow(show, indice) {
       this.indexShows = indice;
       show.hover = !show.hover;
-      this.indexMovies = "";
+      setTimeout(() => {
+        this.indexShows = "";
+      }, 1000);
     },
   },
   mounted() {},
