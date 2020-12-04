@@ -39,7 +39,7 @@
       </header>
 
       <!-- sezione risultati film -->
-      <main class="result-section">
+      <main id="risultati-film" class="result-section">
         <div
           class="results"
           v-for="(movie, indice) in moviesArray"
@@ -59,14 +59,15 @@
             alt="no poster"
           />
 
-          <div
-            class="info"
-            :class="indexSelected === indice ? 'hover' : 'none' "
-          >
-            <h4>{{movie.title}}</h4>
-            <h4>{{movie.original_title}}</h4>
+          <div class="info" :class="indexMovies === indice ? 'hover' : 'none' ">
+            <h5>Titolo: <span class="span">{{movie.title}}</span></h5>
+            <h5>
+              Titolo originale:
+              <span class="span">{{movie.original_title}}</span>
+            </h5>
             <h4>{{movie.original_language}}</h4>
             <h4>{{Math.ceil(movie.vote_average / 2)}}</h4>
+            <span>Voto:</span>
             <i
               :class="(Math.ceil(movie.vote_average / 2) >=1) ? 'star' : ''"
               class="fas fa-star"
@@ -88,17 +89,18 @@
               :class="(Math.ceil(movie.vote_average / 2) >= 5) ? 'star' : ''"
             ></i>
             <img class="flag" :src="whatFlag(movie)" alt="flag" />
+            <h6>Overview: <span class="span">{{movie.overview}}</span></h6>
           </div>
         </div>
       </main>
 
       <!-- sezione risultati serie tv -->
-      <main class="result-section">
+      <main id="risultati-shows" class="result-section">
         <div
           class="results"
           v-for="(show, indice) in showsArray"
-          @mouseover="provaHover(show, indice)"
-          @mouseleave="esciHover(show, indice)"
+          @mouseover="hoverShow(show, indice)"
+          @mouseleave="leaveShow(show, indice)"
         >
           <img
             :src="posterPath + show.poster_path"
@@ -111,12 +113,11 @@
             :src="noPoster"
             alt="no poster"
           />
-          <div
-            class="info"
-            :class="indexSelected === indice ? 'hover' : 'none' "
-          >
-            <h4>{{show.name}}</h4>
-            <h4>{{show.original_name}}</h4>
+          <div class="info" :class="indexShows === indice ? 'hover' : 'none' ">
+            <h5>Titolo: <span class="span">{{show.name}}</span></h5>
+            <h5>
+              Titolo originale: <span class="span">{{show.original_name}}</span>
+            </h5>
             <h4>{{show.original_language}}</h4>
             <h4>{{Math.ceil(show.vote_average / 2)}}</h4>
             <i
@@ -140,6 +141,7 @@
               :class="(Math.ceil(show.vote_average / 2) >= 5) ? 'star' : ''"
             ></i>
             <img class="flag" :src="whatFlag(show)" alt="flag" />
+            <h6>Overview: <span class="span">{{show.overview}}</span></h6>
           </div>
         </div>
       </main>

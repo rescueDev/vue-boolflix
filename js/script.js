@@ -27,7 +27,8 @@ var app = new Vue({
     posterPath: "https://image.tmdb.org/t/p/w185",
     noFlag: "img/noflag.jpg",
     noPoster: "img/missing.png",
-    indexSelected: "",
+    indexMovies: "",
+    indexShows: "",
   },
   methods: {
     searchFilm() {
@@ -46,7 +47,7 @@ var app = new Vue({
           const results = response.data.results;
           //console.log(results);
           this.showsArray = results;
-          this.moviesArray.forEach((element) => {
+          this.showsArray.forEach((element) => {
             element.hover = false;
           });
           console.log(this.showsArray);
@@ -72,46 +73,28 @@ var app = new Vue({
         return this.noFlag;
       }
     },
-    // showInfo(serie, indice) {
-    //   if (serie[indice].hover === true) {
-    //     return "hover";
-    //   } else {
-    //     return "";
-    //   }
-    // },
-    // movieInfo(indice) {
-    //   if (indice.hover === true) {
-    //     return "hover";
-    //   } else {
-    //     return "";
-    //   }
-    // },
-    // overPoster(indice) {
-    //   indice.hover = true;
-    //   console.log(this.moviesArray);
-    // },
-    // outPoster(indice) {
-    //   indice.hover = false;
-    //   console.log(this.moviesArray);
-    // },
-    // index(indice) {
-    //   this.indexSelected = indice;
-    // },
+
     provaHover(movie, indice) {
-      this.indexSelected = indice;
+      this.indexMovies = indice;
       movie.hover = !movie.hover;
-      console.log(this.moviesArray);
-      console.log(this.indexSelected);
-      console.log(movie.hover);
     },
     esciHover(movie, indice) {
+      this.indexMovies = indice;
       movie.hover = !movie.hover;
-    },
 
-    // provaEsciHover(movie) {
-    //   movie.hover = !movie.hover;
-    //   console.log(this.moviesArray);
-    // },
+      this.indexMovies = "";
+
+      console.log(movie.hover);
+    },
+    hoverShow(show, indice) {
+      this.indexShows = indice;
+      show.hover = !show.hover;
+    },
+    leaveShow(show, indice) {
+      this.indexShows = indice;
+      show.hover = !show.hover;
+      this.indexMovies = "";
+    },
   },
   mounted() {},
   computed: {},
