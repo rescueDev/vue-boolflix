@@ -120,3 +120,7 @@ input {
   white-space: wrap;
   text-overflow: ellipsis;
 }
+
+.attori {
+  color: white;
+}

@@ -22,7 +22,7 @@ var app = new Vue({
     popularMovies: [],
     showsArray: [],
     popularShows: [],
-    actorsMovie: [],
+    actorsMovies: [],
     actorsShows: [],
     moviesGenres: [],
     showsGenres: [],
@@ -58,12 +58,16 @@ var app = new Vue({
           })
           .then((response) => {
             const results = response.data.results;
-            //console.log(results);
+
+            //salvo i risultati nell'array
             this.moviesArray = results;
+            //aggiungo una proprietà ad ogni elemento per controllare l hover
             this.moviesArray.forEach((element) => {
               element.hover = false;
             });
             //console.log(this.moviesArray);
+
+            //azzero input ricerca
             this.searchInput = "";
             //controllo se l'array ha elementi, se si allora faccio apparire l'intestazione della sezione
             if (this.moviesArray.length > 0) {
@@ -93,24 +97,51 @@ var app = new Vue({
           });
       }
     },
-    // actorsDisplay(id) {
-    //   axios
-    //     .get(
-    //       "https://api.themoviedb.org/3/movie/" +
-    //         id +
-    //         "?api_key=" +
-    //         this.apiKey +
-    //         "&append_to_response=credits"
-    //     )
-    //     .then((risp) => {
-    //       // vogliamo solo i primi 5 attori quindi pushamo nell'array i primi 5 risultati
-    //       for (let i = 0; i < 5; i++) {
-    //         this.actorsMovies.push(risp.data.credits.cast[i]);
-    //       }
-    //       this.moviesGenres = risp.data.genres;
-    //       console.log(this.genreMovies);
-    //     });
-    // },
+    filterMovies(id) {
+      this.actorsMovies = []; // ogni volta che richiamiamo la funzione azzeriamo l'array altrimenti ogni evento di mouseenter l'array verrà popolato con i 5 attori
+
+      this.moviesGenres = [];
+
+      axios
+        .get(
+          "https://api.themoviedb.org/3/movie/" +
+            id +
+            "?api_key=" +
+            this.apiKey +
+            "&append_to_response=credits"
+        )
+        .then((response) => {
+          // solo i primi 5 attori quindi pushamo nell'array i primi 5 risultati
+          for (let i = 0; i < 5; i++) {
+            this.actorsMovies.push(response.data.credits.cast[i]);
+          }
+          this.moviesGenres = response.data.genres;
+          console.log("Attori Film: ", this.actorsMovies);
+          console.log("Generi Film: ", this.moviesGenres);
+        });
+    },
+    filterTv(id) {
+      this.actorsShows = [];
+      this.showsGenres = [];
+      axios
+        .get(
+          "https://api.themoviedb.org/3/tv/" +
+            id +
+            "?api_key=" +
+            this.apiKey +
+            "&append_to_response=credits"
+        )
+        .then((response) => {
+          console.log(response);
+          // solo i primi 5 attori quindi pushamo nell'array i primi 5 risultati
+          for (let i = 0; i < 5; i++) {
+            this.actorsShows.push(response.data.credits.cast[i]);
+          }
+          this.showsGenres = response.data.genres;
+          console.log("Attori Serie tv: ", this.actorsShows);
+          console.log("Generi Serie Tv: ", this.showsGenres);
+        });
+    },
     //funzione per contrallare che bandiera assegnare in base alla lingua
     whatFlag: function (movie) {
       if (movie.original_language === "en") {
