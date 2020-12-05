@@ -44,9 +44,53 @@
         </div>
       </header>
 
-      <!-- sezione risultati film -->
-      <main class="result-section">
-        <h2 v-show="showFilmSection">Movies</h2>
+      <!-- Popular movies visibile on home-page disappearing on search -->
+      <main class="result-section" id="popular-movies" v-if="popMoviesVisible">
+        <h2>Popular Movies</h2>
+        <div
+          class="results"
+          v-for="(movie, indice) in popularMovies"
+          @mouseover="provaHover(movie, indice)"
+          @mouseleave="esciHover(movie, indice)"
+        >
+          <img
+            class="poster"
+            :src="posterPath + movie.poster_path"
+            alt="poster"
+            v-show="movie.poster_path !== null"
+          />
+          <img
+            class="no-poster"
+            v-show="movie.poster_path === null"
+            :src="noPoster"
+            alt="no poster"
+          />
+
+          <div class="info" :class="indexMovies === indice ? 'hover' : 'none' ">
+            <div class="titolo">
+              <h4>Titolo: <span class="span">{{movie.title}}</span></h4>
+              <h5>
+                Titolo originale:
+                <span class="span">{{movie.original_title}}</span>
+              </h5>
+            </div>
+            <img class="flag" :src="whatFlag(movie)" alt="flag" />
+            <div class="voto">
+              <span>Voto:</span>
+              <i
+                v-for="(items, index) in 5"
+                :class="(Math.ceil(movie.vote_average / 2) > index) ? 'star' : ''"
+                class="fas fa-star"
+              ></i>
+            </div>
+            <h6>Overview: <span class="overview">{{movie.overview}}</span></h6>
+          </div>
+        </div>
+      </main>
+
+      <!-- sezione risultati film ricercati -->
+      <main class="result-section" v-if="showFilmSection">
+        <h2>Movies</h2>
         <div
           class="results"
           v-for="(movie, indice) in moviesArray"
@@ -74,31 +118,13 @@
                 <span class="span">{{movie.original_title}}</span>
               </h5>
             </div>
-
-            <!-- <h4>{{movie.original_language}}</h4> -->
-            <!-- <h4>{{Math.ceil(movie.vote_average / 2)}}</h4> -->
             <img class="flag" :src="whatFlag(movie)" alt="flag" />
             <div class="voto">
               <span>Voto:</span>
               <i
-                :class="(Math.ceil(movie.vote_average / 2) >=1) ? 'star' : ''"
+                v-for="(items, index) in 5"
+                :class="(Math.ceil(movie.vote_average / 2) > index) ? 'star' : ''"
                 class="fas fa-star"
-              ></i>
-              <i
-                class="fas fa-star"
-                :class="(Math.ceil(movie.vote_average / 2) >= 2) ? 'star' : ''"
-              ></i>
-              <i
-                class="fas fa-star"
-                :class="(Math.ceil(movie.vote_average / 2) >= 3) ? 'star' : ''"
-              ></i>
-              <i
-                class="fas fa-star"
-                :class="(Math.ceil(movie.vote_average / 2) >= 4) ? 'star' : ''"
-              ></i>
-              <i
-                class="fas fa-star"
-                :class="(Math.ceil(movie.vote_average / 2) >= 5) ? 'star' : ''"
               ></i>
             </div>
 
@@ -107,9 +133,55 @@
         </div>
       </main>
 
+      <!-- Popular shows visibile on home-page disappearing on search -->
+      <main class="result-section" id="popular-shows" v-if="popShowsVisible">
+        <h2>Shows</h2>
+        <div
+          class="results"
+          v-for="(show, indice) in popularShows"
+          @mouseover="hoverShow(show, indice)"
+          @mouseleave="leaveShow(show, indice)"
+        >
+          <img
+            :src="posterPath + show.poster_path"
+            alt="poster"
+            v-show="show.poster_path !== null"
+          />
+          <img
+            class="no-poster"
+            v-show="show.poster_path === null"
+            :src="noPoster"
+            alt="no poster"
+          />
+          <div class="info" :class="indexShows === indice ? 'hover' : 'none' ">
+            <div class="titolo">
+              <h4>Titolo: <span class="span">{{show.name}}</span></h4>
+              <h5>
+                Titolo originale:
+                <span class="span">{{show.original_name}}</span>
+              </h5>
+            </div>
+
+            <!-- <h4>{{show.original_language}}</h4> -->
+            <!-- <h4>{{Math.ceil(show.vote_average / 2)}}</h4> -->
+            <img class="flag" :src="whatFlag(show)" alt="flag" />
+            <div class="voto">
+              <span>Voto: </span>
+              <i
+                v-for="(items, index) in 5"
+                :class="(Math.ceil(show.vote_average / 2) > index) ? 'star' : ''"
+                class="fas fa-star"
+              ></i>
+            </div>
+
+            <h5>Overview: <span class="overview">{{show.overview}}</span></h5>
+          </div>
+        </div>
+      </main>
+
       <!-- sezione risultati serie tv -->
-      <main class="result-section">
-        <h2 v-show="showShowsSection">Shows</h2>
+      <main class="result-section" v-if="showShowsSection">
+        <h2>Shows</h2>
         <div
           class="results"
           v-for="(show, indice) in showsArray"
@@ -142,10 +214,11 @@
             <div class="voto">
               <span>Voto: </span>
               <i
-                :class="(Math.ceil(show.vote_average / 2) >=1) ? 'star' : ''"
+                v-for="(items, index) in 5"
+                :class="(Math.ceil(show.vote_average / 2) > index) ? 'star' : ''"
                 class="fas fa-star"
               ></i>
-              <i
+              <!-- <i
                 class="fas fa-star"
                 :class="(Math.ceil(show.vote_average / 2) >= 2) ? 'star' : ''"
               ></i>
@@ -160,7 +233,7 @@
               <i
                 class="fas fa-star"
                 :class="(Math.ceil(show.vote_average / 2) >= 5) ? 'star' : ''"
-              ></i>
+              ></i> -->
             </div>
 
             <h5>Overview: <span class="overview">{{show.overview}}</span></h5>
