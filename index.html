@@ -127,7 +127,6 @@
                 class="fas fa-star"
               ></i>
             </div>
-
             <h6>Overview: <span class="overview">{{movie.overview}}</span></h6>
           </div>
         </div>
@@ -161,9 +160,6 @@
                 <span class="span">{{show.original_name}}</span>
               </h5>
             </div>
-
-            <!-- <h4>{{show.original_language}}</h4> -->
-            <!-- <h4>{{Math.ceil(show.vote_average / 2)}}</h4> -->
             <img class="flag" :src="whatFlag(show)" alt="flag" />
             <div class="voto">
               <span>Voto: </span>
@@ -173,7 +169,6 @@
                 class="fas fa-star"
               ></i>
             </div>
-
             <h5>Overview: <span class="overview">{{show.overview}}</span></h5>
           </div>
         </div>
@@ -207,9 +202,6 @@
                 <span class="span">{{show.original_name}}</span>
               </h5>
             </div>
-
-            <!-- <h4>{{show.original_language}}</h4> -->
-            <!-- <h4>{{Math.ceil(show.vote_average / 2)}}</h4> -->
             <img class="flag" :src="whatFlag(show)" alt="flag" />
             <div class="voto">
               <span>Voto: </span>
@@ -218,24 +210,7 @@
                 :class="(Math.ceil(show.vote_average / 2) > index) ? 'star' : ''"
                 class="fas fa-star"
               ></i>
-              <!-- <i
-                class="fas fa-star"
-                :class="(Math.ceil(show.vote_average / 2) >= 2) ? 'star' : ''"
-              ></i>
-              <i
-                class="fas fa-star"
-                :class="(Math.ceil(show.vote_average / 2) >= 3) ? 'star' : ''"
-              ></i>
-              <i
-                class="fas fa-star"
-                :class="(Math.ceil(show.vote_average / 2) >= 4) ? 'star' : ''"
-              ></i>
-              <i
-                class="fas fa-star"
-                :class="(Math.ceil(show.vote_average / 2) >= 5) ? 'star' : ''"
-              ></i> -->
             </div>
-
             <h5>Overview: <span class="overview">{{show.overview}}</span></h5>
           </div>
         </div>
