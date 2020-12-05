@@ -97,7 +97,7 @@ input {
 }
 
 .no-poster {
-  width: 185px;
+  width: 342px;
   /* height: 100%; */
 }
 
@@ -113,14 +113,32 @@ input {
 
 .overview {
   text-align: center;
-  max-height: 80px;
+  /* max-height: 80px;
   display: inline-block;
   width: 150px;
   overflow: hidden;
   white-space: wrap;
-  text-overflow: ellipsis;
+  text-overflow: ellipsis; */
+}
+
+.overview-c {
+  color: white;
+}
+
+.attori-c {
+  color: white;
+  margin: 10px;
+}
+
+.genere-c {
+  color: white;
+  margin: 10px;
 }
 
 .attori {
+  color: white;
+}
+
+.genere {
   color: white;
 }

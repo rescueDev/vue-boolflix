@@ -36,7 +36,7 @@ var app = new Vue({
       "img/portugal.png",
       "img/china.png",
     ],
-    posterPath: "https://image.tmdb.org/t/p/w185",
+    posterPath: "https://image.tmdb.org/t/p/w342",
     noFlag: "img/noflag.jpg",
     noPoster: "img/missing.png",
     indexMovies: "",
@@ -98,7 +98,7 @@ var app = new Vue({
       }
     },
     filterMovies(id) {
-      this.actorsMovies = []; // ogni volta che richiamiamo la funzione azzeriamo l'array altrimenti ogni evento di mouseenter l'array verrà popolato con i 5 attori
+      this.actorsMovies = [];
 
       this.moviesGenres = [];
 

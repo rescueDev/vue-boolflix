@@ -84,17 +84,21 @@
                 class="fas fa-star"
               ></i>
             </div>
-            <div>
-              <span class="attori" v-for="actors in actorsMovies"
-                >{{actors.name}}</span
-              >
-            </div>
-            <div>
-              <span class="genere" v-for="genere in moviesGenres">
-                {{genere.name}}
+            <div class="attori-c">
+              Attori:
+              <span class="attori" v-for="actors in actorsMovies">
+                {{actors.name}}
               </span>
             </div>
-            <h6>Overview: <span class="overview">{{movie.overview}}</span></h6>
+            <div class="genere-c">
+              Genere:
+              <span class="genere" v-for="genre in moviesGenres">
+                {{ genre.name }}
+              </span>
+            </div>
+            <div class="overview-c">
+              Overview: <span class="overview"> {{ movie.overview }} </span>
+            </div>
           </div>
         </div>
       </main>
@@ -107,7 +111,7 @@
           v-for="(movie, indice) in moviesArray"
           @mouseover="provaHover(movie, indice)"
           @mouseleave="esciHover(movie, indice)"
-          @mouseover="filterMovies(movie.id)"
+          @mouseenter="filterMovies(movie.id)"
         >
           <img
             class="poster"
@@ -139,18 +143,22 @@
                 class="fas fa-star"
               ></i>
             </div>
-            <div>
-              <span class="attori" v-for="actors in actorsMovies"
-                >{{actors.name}}</span
-              >
+            <div class="attori-c">
+              Attori:
+              <span class="attori" v-for="actors in actorsMovies">
+                {{ actors.name }}
+              </span>
             </div>
-            <div>
-              <span class="genere" v-for="genere in moviesGenres">
-                {{genere.name}}
+            <div class="genere-c">
+              Genere:
+              <span class="genere" v-for="genre in moviesGenres">
+                {{genre.name}}
               </span>
             </div>
 
-            <h6>Overview: <span class="overview">{{movie.overview}}</span></h6>
+            <div class="overview-c">
+              Overview: <span class="overview"> {{ movie.overview }} </span>
+            </div>
           </div>
         </div>
       </main>
@@ -178,10 +186,10 @@
           />
           <div class="info" :class="indexShows === indice ? 'hover' : 'none' ">
             <div class="titolo">
-              <h4>Titolo: <span class="span">{{show.name}}</span></h4>
+              <h4>Titolo: <span class="span"> {{show.name}} </span></h4>
               <h5>
                 Titolo originale:
-                <span class="span">{{show.original_name}}</span>
+                <span class="span"> {{show.original_name}} </span>
               </h5>
             </div>
             <img class="flag" :src="whatFlag(show)" alt="flag" />
@@ -193,17 +201,21 @@
                 class="fas fa-star"
               ></i>
             </div>
-            <div>
-              <span class="attori" v-for="actors in actorsShows"
-                >{{actors.name}}</span
-              >
+            <div class="attori-c">
+              Attori:
+              <span class="attori" v-for="actors in actorsShows">
+                {{ actors.name }}
+              </span>
             </div>
-            <div>
-              <span class="genere" v-for="generi in showsGenres">
-                {{genere.name}}</span
-              >
+            <div class="genere-c">
+              Genere:
+              <span class="genere" v-for="genre in showsGenres">
+                {{ genre.name }}
+              </span>
             </div>
-            <h5>Overview: <span class="overview">{{show.overview}}</span></h5>
+            <div class="overview-c">
+              Overview: <span class="overview"> {{ show.overview }} </span>
+            </div>
           </div>
         </div>
       </main>
@@ -246,18 +258,20 @@
                 class="fas fa-star"
               ></i>
             </div>
-            <div>
-              <span class="attori" v-for="actors in actorsShows"
-                >{{actors.name}}</span
-              >
+            <div class="attori-c">
+              Attori:
+              <span class="attori" v-for="actors in actorsShows">
+                {{ actors.name }}
+              </span>
             </div>
-            <div>
-              <span class="genere" v-for="generi in showsGenres">
-                {{genere.name}}</span
-              >
+            <div class="genere-c">
+              Genere:
+              <span class="genere" v-for="genre in showsGenres">
+                {{ genre.name }}
+              </span>
             </div>
 
-            <h5>Overview: <span class="overview">{{show.overview}}</span></h5>
+            <div>Overview: <span class="overview">{{show.overview}}</span></div>
           </div>
         </div>
       </main>
