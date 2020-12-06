@@ -86,7 +86,11 @@
             </div>
             <div class="attori-c">
               Attori:
-              <span class="attori" v-for="actors in actorsMovies">
+              <span
+                v-if="actors !== undefined"
+                class="attori"
+                v-for="actors in actorsMovies"
+              >
                 {{actors.name}}
               </span>
             </div>
@@ -145,7 +149,11 @@
             </div>
             <div class="attori-c">
               Attori:
-              <span class="attori" v-for="actors in actorsMovies">
+              <span
+                v-if="actors !== undefined"
+                class="attori"
+                v-for="actors in actorsMovies"
+              >
                 {{ actors.name }}
               </span>
             </div>
@@ -203,7 +211,11 @@
             </div>
             <div class="attori-c">
               Attori:
-              <span class="attori" v-for="actors in actorsShows">
+              <span
+                v-if="actors !== undefined"
+                class="attori"
+                v-for="actors in actorsShows"
+              >
                 {{ actors.name }}
               </span>
             </div>
@@ -260,7 +272,11 @@
             </div>
             <div class="attori-c">
               Attori:
-              <span class="attori" v-for="actors in actorsShows">
+              <span
+                v-if="actors !== undefined"
+                class="attori"
+                v-for="actors in actorsShows"
+              >
                 {{ actors.name }}
               </span>
             </div>
@@ -270,8 +286,9 @@
                 {{ genre.name }}
               </span>
             </div>
-
-            <div>Overview: <span class="overview">{{show.overview}}</span></div>
+            <div class="overview-c">
+              Overview: <span class="overview"> {{ show.overview }} </span>
+            </div>
           </div>
         </div>
       </main>

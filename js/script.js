@@ -137,6 +137,7 @@ var app = new Vue({
           for (let i = 0; i < 5; i++) {
             this.actorsShows.push(response.data.credits.cast[i]);
           }
+
           this.showsGenres = response.data.genres;
           console.log("Attori Serie tv: ", this.actorsShows);
           console.log("Generi Serie Tv: ", this.showsGenres);
