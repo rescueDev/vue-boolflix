@@ -47,6 +47,15 @@
       <!-- Popular movies visibile on home-page disappearing on search -->
       <main class="result-section" id="popular-movies" v-if="popMoviesVisible">
         <h2>Popular Movies</h2>
+        <!-- genres filter  popular movies -->
+        <ul class="generi">
+          <li
+            v-for="generi in totalGenresMovies"
+            @click="filtroFilmGenere(generi.id)"
+          >
+            {{ generi.name }}
+          </li>
+        </ul>
         <div
           class="results"
           v-for="(movie, indice) in popularMovies"
@@ -174,6 +183,15 @@
       <!-- Popular shows visibile on home-page disappearing on search -->
       <main class="result-section" id="popular-shows" v-if="popShowsVisible">
         <h2>Popular Shows</h2>
+        <!-- genres filter  popular shows -->
+        <ul class="generi">
+          <li
+            v-for="generi in totalGenresShows"
+            @click="filtroSerieGenere(generi.id)"
+          >
+            {{ generi.name }}
+          </li>
+        </ul>
         <div
           class="results"
           v-for="(show, indice) in popularShows"

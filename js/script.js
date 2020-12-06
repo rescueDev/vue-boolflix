@@ -13,10 +13,17 @@ const showsDb = "https://api.themoviedb.org/3/search/tv";
 //creo variabile con il valore dell'api shows piu recenti
 const popularShows = "https://api.themoviedb.org/3/tv/popular";
 
+//creo variabile per interrogare generi movies
+const movieDbGenres = "https://api.themoviedb.org/3/genre/movie/list";
+
+//creo variabile per interrogare generi shows
+const showsDbGenres = "https://api.themoviedb.org/3/genre/tv/list";
+
 var app = new Vue({
   el: "#app",
   data: {
     searchInput: "",
+    selected: "",
     apiKey: "a7c4877ed2ef5089283e2a5845b4c723",
     moviesArray: [],
     popularMovies: [],
@@ -26,6 +33,8 @@ var app = new Vue({
     actorsShows: [],
     moviesGenres: [],
     showsGenres: [],
+    totalGenresMovies: [],
+    totalGenresShows: [],
     languageFlag: [
       "img/italy.png",
       "img/united-kingdom.png",
@@ -98,10 +107,9 @@ var app = new Vue({
       }
     },
     filterMovies(id) {
+      //azzero ad ogni mouseenter i due array se no mi si accumulano elementi precedenti
       this.actorsMovies = [];
-
       this.moviesGenres = [];
-
       axios
         .get(
           "https://api.themoviedb.org/3/movie/" +
@@ -116,11 +124,12 @@ var app = new Vue({
             this.actorsMovies.push(response.data.credits.cast[i]);
           }
           this.moviesGenres = response.data.genres;
-          console.log("Attori Film: ", this.actorsMovies);
-          console.log("Generi Film: ", this.moviesGenres);
+          // console.log("Attori Film: ", this.actorsMovies);
+          // console.log("Generi Film: ", this.moviesGenres);
         });
     },
     filterTv(id) {
+      //azzero ad ogni mouseenter i due array se no mi si accumulano elementi precedenti
       this.actorsShows = [];
       this.showsGenres = [];
       axios
@@ -132,17 +141,44 @@ var app = new Vue({
             "&append_to_response=credits"
         )
         .then((response) => {
-          console.log(response);
+          //console.log(response);
           // solo i primi 5 attori quindi pushamo nell'array i primi 5 risultati
           for (let i = 0; i < 5; i++) {
             this.actorsShows.push(response.data.credits.cast[i]);
           }
-
           this.showsGenres = response.data.genres;
-          console.log("Attori Serie tv: ", this.actorsShows);
-          console.log("Generi Serie Tv: ", this.showsGenres);
+          // console.log("Attori Serie tv: ", this.actorsShows);
+          // console.log("Generi Serie Tv: ", this.showsGenres);
         });
     },
+    filtroFilmGenere(id) {
+      //chiamata per ottenere dettagli da id film
+      axios
+        .get(
+          "https://api.themoviedb.org/3/discover/movie?api_key=" +
+            this.apiKey +
+            "&with_genres=" +
+            id
+        )
+        .then((response) => {
+          this.popularMovies = response.data.results;
+          // console.log(this.popularMovies);
+        });
+    },
+    filtroSerieGenere(id) {
+      //chiamata per ottenere dettagli da id film
+      axios
+        .get(
+          "https://api.themoviedb.org/3/discover/tv?api_key=" +
+            this.apiKey +
+            "&with_genres=" +
+            id
+        )
+        .then((response) => {
+          this.popularShows = response.data.results;
+        });
+    },
+
     //funzione per contrallare che bandiera assegnare in base alla lingua
     whatFlag: function (movie) {
       if (movie.original_language === "en") {
@@ -187,6 +223,7 @@ var app = new Vue({
     },
   },
   mounted() {
+    //chiamata popular movies al caricamento pagina
     axios
       .get(popularMovies, {
         params: { api_key: this.apiKey, language: "en-US" },
@@ -194,8 +231,10 @@ var app = new Vue({
       .then((response) => {
         const results = response.data.results;
         this.popularMovies = results;
-        console.log(this.popularMovies);
+        //console.log(this.popularMovies);
       });
+
+    //chiamata popular shows al caricamento pagina
     axios
       .get(popularShows, {
         params: { api_key: this.apiKey, language: "en-US" },
@@ -203,7 +242,29 @@ var app = new Vue({
       .then((response) => {
         const results = response.data.results;
         this.popularShows = results;
-        console.log(this.popularShows);
+        //console.log(this.popularShows);
+      });
+
+    //chiamata per scaricare tutti i generi movies al caricamento
+    axios
+      .get(movieDbGenres, { params: { api_key: this.apiKey } })
+      .then((response) => {
+        //console.log(response);
+        const risposta = response.data.genres;
+        //console.log(risposta);
+        this.totalGenresMovies = risposta;
+        console.log("Generi totali film:", this.totalGenresMovies);
+      });
+
+    //chiamata per scaricare tutti i generi shows al caricamento
+    axios
+      .get(showsDbGenres, { params: { api_key: this.apiKey } })
+      .then((response) => {
+        //console.log(response);
+        const risposta = response.data.genres;
+        //console.log(risposta);
+        this.totalGenresShows = risposta;
+        console.log("Generi totali shows: ", this.totalGenresShows);
       });
   },
   computed: {},
