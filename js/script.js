@@ -49,13 +49,15 @@ var app = new Vue({
     posterPath: "https://image.tmdb.org/t/p/w342",
     noFlag: "img/noflag.jpg",
     noPoster: "img/missing.png",
+    noResults:
+      "https://blog.expertrec.com/wp-content/uploads/2019/01/no_results_found.png",
     indexMovies: "",
     indexShows: "",
     showFilmSection: false,
     showShowsSection: false,
     popShowsVisible: false,
     popMoviesVisible: false,
-    homeIsVisible: true,
+    homeIsVisible: true, // sezione home visibile al caricamento pagina
     mostraGeneriMovies: false,
     mostraGeneriShows: false,
   },
@@ -78,8 +80,6 @@ var app = new Vue({
             this.moviesArray.forEach((element) => {
               element.hover = false;
             });
-            //console.log(this.moviesArray);
-
             //azzero input ricerca
             this.searchInput = "";
             //controllo se l'array ha elementi, se si allora faccio apparire l'intestazione della sezione
@@ -97,12 +97,10 @@ var app = new Vue({
           })
           .then((response) => {
             const results = response.data.results;
-            //console.log(results);
             this.showsArray = results;
             this.showsArray.forEach((element) => {
               element.hover = false;
             });
-            //console.log(this.showsArray);
             //controllo se l'array ha elementi, se si allora faccio apparire l'intestazione della sezione
             if (this.showsArray.length > 0) {
               this.showShowsSection = true;
@@ -112,11 +110,13 @@ var app = new Vue({
           });
       }
     },
+    //funzione per passare tra categorie (home, movies , shows)
     selezHome() {
       this.homeIsVisible = true;
       this.popShowsVisible = false;
       this.popMoviesVisible = false;
     },
+    //funzione per passare tra categorie (home, movies , shows)
     selezMovies() {
       this.homeIsVisible = false;
       this.popShowsVisible = false;
@@ -128,6 +128,7 @@ var app = new Vue({
       this.popMoviesVisible = false;
       this.homeIsVisible = false;
     },
+    //funzione per ottenere attori e generi per ogni movie
     filterMovies(id) {
       //azzero ad ogni mouseenter i due array se no mi si accumulano elementi precedenti
       this.actorsMovies = [];
@@ -146,10 +147,9 @@ var app = new Vue({
             this.actorsMovies.push(response.data.credits.cast[i]);
           }
           this.moviesGenres = response.data.genres;
-          // console.log("Attori Film: ", this.actorsMovies);
-          // console.log("Generi Film: ", this.moviesGenres);
         });
     },
+    //funzione per ottenere attori e generi per ogni shows
     filterTv(id) {
       //azzero ad ogni mouseenter i due array se no mi si accumulano elementi precedenti
       this.actorsShows = [];
@@ -163,16 +163,14 @@ var app = new Vue({
             "&append_to_response=credits"
         )
         .then((response) => {
-          //console.log(response);
           // solo i primi 5 attori quindi pushamo nell'array i primi 5 risultati
           for (let i = 0; i < 5; i++) {
             this.actorsShows.push(response.data.credits.cast[i]);
           }
           this.showsGenres = response.data.genres;
-          // console.log("Attori Serie tv: ", this.actorsShows);
-          // console.log("Generi Serie Tv: ", this.showsGenres);
         });
     },
+    //filtro film per generi
     filtroFilmGenere(id) {
       //chiamata per ottenere dettagli da id film
       axios
@@ -184,9 +182,9 @@ var app = new Vue({
         )
         .then((response) => {
           this.popularMovies = response.data.results;
-          // console.log(this.popularMovies);
         });
     },
+    //filtro show per generi
     filtroSerieGenere(id) {
       //chiamata per ottenere dettagli da id serie tv
       axios
@@ -243,6 +241,9 @@ var app = new Vue({
       show.hover = !show.hover;
       this.indexShows = "";
     },
+    reload() {
+      location.reload();
+    },
   },
   mounted() {
     //chiamata trending nella home page
@@ -263,7 +264,6 @@ var app = new Vue({
       .then((response) => {
         const results = response.data.results;
         this.popularMovies = results;
-        //console.log(this.popularMovies);
       });
 
     //chiamata popular shows al caricamento pagina
@@ -274,30 +274,38 @@ var app = new Vue({
       .then((response) => {
         const results = response.data.results;
         this.popularShows = results;
-        //console.log(this.popularShows);
       });
 
     //chiamata per scaricare tutti i generi movies al caricamento
     axios
       .get(movieDbGenres, { params: { api_key: this.apiKey } })
       .then((response) => {
-        //console.log(response);
         const risposta = response.data.genres;
-        //console.log(risposta);
         this.totalGenresMovies = risposta;
-        console.log("Generi totali film:", this.totalGenresMovies);
       });
 
     //chiamata per scaricare tutti i generi shows al caricamento
     axios
       .get(showsDbGenres, { params: { api_key: this.apiKey } })
       .then((response) => {
-        //console.log(response);
         const risposta = response.data.genres;
-        //console.log(risposta);
         this.totalGenresShows = risposta;
-        console.log("Generi totali shows: ", this.totalGenresShows);
       });
   },
-  computed: {},
+  computed: {
+    // funzione che verifica se entrambi array di ricerca siano vuoti (quindi nessun risultato) e inoltre che non mi trovi nella home o nella sez film o nella sezione shows
+    nessunRisultato() {
+      if (
+        this.moviesArray.length < 1 &&
+        this.showsArray.length < 1 &&
+        this.homeIsVisible === false &&
+        this.popShowsVisible === false &&
+        this.popMoviesVisible === false
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+  },
 });

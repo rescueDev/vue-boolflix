@@ -34,6 +34,13 @@ header {
 
 #logo {
   font-size: 40px;
+  cursor: pointer;
+  transition: 0.5s ease;
+}
+
+#logo:hover {
+  transform: scale(1.05);
+  transition: 0.5s ease;
 }
 
 input {
@@ -63,10 +70,27 @@ input {
 
 .nav-item:hover {
   cursor: pointer;
-  background-color: darkgray;
+  /* background-color: rgb(87, 85, 85); */
   transition: 0.5s ease;
+  color: red;
 }
 
+/* sezione nessu risultato */
+.no-results {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*immagine nessun risultato*/
+.no-results img {
+  width: 100%;
+  height: 80vh;
+  filter: brightness(0.5);
+}
+
+/*risultati */
 .result-section {
   width: 80%;
   padding: 0 15px;

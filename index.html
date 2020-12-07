@@ -31,7 +31,7 @@
     <div id="app">
       <!-- Header con logo e ricerca -->
       <header>
-        <div id="logo">
+        <div id="logo" @click="reload">
           <h3>BOOLFLIX</h3>
         </div>
         <div id="search">
@@ -85,7 +85,7 @@
           <div class="info" :class="indexMovies === indice ? 'hover' : 'none' ">
             <div class="titolo">
               <h4>Titolo: <span class="span">{{movie.title}}</span></h4>
-              <h5>
+              <h5 v-if="movie.title !== movie.original_title ">
                 Titolo originale:
                 <span class="span">{{movie.original_title}}</span>
               </h5>
@@ -157,7 +157,7 @@
           <div class="info" :class="indexMovies === indice ? 'hover' : 'none' ">
             <div class="titolo">
               <h4>Titolo: <span class="span">{{movie.title}}</span></h4>
-              <h5>
+              <h5 v-if="movie.title !== movie.original_title ">
                 Titolo originale:
                 <span class="span">{{movie.original_title}}</span>
               </h5>
@@ -220,7 +220,7 @@
           <div class="info" :class="indexMovies === indice ? 'hover' : 'none' ">
             <div class="titolo">
               <h4>Titolo: <span class="span">{{movie.title}}</span></h4>
-              <h5>
+              <h5 v-if="movie.title !== movie.original_title ">
                 Titolo originale:
                 <span class="span">{{movie.original_title}}</span>
               </h5>
@@ -258,6 +258,10 @@
         </div>
       </main>
 
+      <main v-if="nessunRisultato" class="no-results">
+        <img :src="noResults" alt="no results" />
+      </main>
+
       <!-- Popular shows visibile on home-page disappearing on search -->
       <main class="result-section" id="popular-shows" v-if="popShowsVisible">
         <h2>Popular Shows</h2>
@@ -291,7 +295,7 @@
           <div class="info" :class="indexShows === indice ? 'hover' : 'none' ">
             <div class="titolo">
               <h4>Titolo: <span class="span"> {{show.name}} </span></h4>
-              <h5>
+              <h5 v-if="show.name !== show.original_name ">
                 Titolo originale:
                 <span class="span"> {{show.original_name}} </span>
               </h5>
@@ -352,7 +356,7 @@
           <div class="info" :class="indexShows === indice ? 'hover' : 'none' ">
             <div class="titolo">
               <h4>Titolo: <span class="span">{{show.name}}</span></h4>
-              <h5>
+              <h5 v-if="show.name !== show.original_name ">
                 Titolo originale:
                 <span class="span">{{show.original_name}}</span>
               </h5>
