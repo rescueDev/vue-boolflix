@@ -28,6 +28,7 @@ var app = new Vue({
     moviesArray: [],
     popularMovies: [],
     showsArray: [],
+    trendingAll: [],
     popularShows: [],
     actorsMovies: [],
     actorsShows: [],
@@ -52,8 +53,11 @@ var app = new Vue({
     indexShows: "",
     showFilmSection: false,
     showShowsSection: false,
-    popShowsVisible: true,
-    popMoviesVisible: true,
+    popShowsVisible: false,
+    popMoviesVisible: false,
+    homeIsVisible: true,
+    mostraGeneriMovies: false,
+    mostraGeneriShows: false,
   },
   methods: {
     //funzione che chiama dall'api sia i film che gli shows
@@ -84,6 +88,8 @@ var app = new Vue({
             } else {
               this.showFilmSection = false;
             }
+            //faccio scomparire la sezione home
+            this.homeIsVisible = false;
           });
         axios
           .get(showsDb, {
@@ -105,6 +111,22 @@ var app = new Vue({
             }
           });
       }
+    },
+    selezHome() {
+      this.homeIsVisible = true;
+      this.popShowsVisible = false;
+      this.popMoviesVisible = false;
+    },
+    selezMovies() {
+      this.homeIsVisible = false;
+      this.popShowsVisible = false;
+      this.popMoviesVisible = true;
+    },
+    //funzione per passare tra categorie (home, movies , shows)
+    selezShows() {
+      this.popShowsVisible = true;
+      this.popMoviesVisible = false;
+      this.homeIsVisible = false;
     },
     filterMovies(id) {
       //azzero ad ogni mouseenter i due array se no mi si accumulano elementi precedenti
@@ -166,7 +188,7 @@ var app = new Vue({
         });
     },
     filtroSerieGenere(id) {
-      //chiamata per ottenere dettagli da id film
+      //chiamata per ottenere dettagli da id serie tv
       axios
         .get(
           "https://api.themoviedb.org/3/discover/tv?api_key=" +
@@ -223,6 +245,16 @@ var app = new Vue({
     },
   },
   mounted() {
+    //chiamata trending nella home page
+    axios
+      .get("https://api.themoviedb.org/3/trending/movie/week", {
+        params: { api_key: this.apiKey, language: "en-US" },
+      })
+      .then((response) => {
+        const results = response.data.results;
+        this.trendingAll = results;
+        console.log("trending week", this.trendingAll);
+      });
     //chiamata popular movies al caricamento pagina
     axios
       .get(popularMovies, {

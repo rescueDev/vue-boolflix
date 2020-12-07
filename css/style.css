@@ -6,7 +6,7 @@
 }
 
 body {
-  background-color: black;
+  background-color: rgb(49, 48, 48);
 }
 
 .flag {
@@ -18,7 +18,7 @@ body {
   width: 100%;
   height: 100vh;
   /* debug */
-  background-color: black;
+  background-color: rgb(49, 48, 48);
 }
 
 header {
@@ -33,7 +33,7 @@ header {
 }
 
 #logo {
-  font-size: 30px;
+  font-size: 40px;
 }
 
 input {
@@ -41,14 +41,39 @@ input {
   padding-left: 15px;
 }
 
+#nav {
+  width: 100%;
+  height: 60px;
+  background-color: rgb(29, 28, 28);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-item {
+  width: 10%;
+  font-size: 25px;
+  text-align: center;
+  color: white;
+}
+
+.nav-item:focus {
+  text-decoration: underline;
+}
+
+.nav-item:hover {
+  cursor: pointer;
+  background-color: darkgray;
+  transition: 0.5s ease;
+}
+
 .result-section {
   width: 80%;
-
   padding: 0 15px;
   display: flex;
   flex-wrap: wrap;
   margin: 20px auto;
-  background-color: black;
+  background-color: rgb(49, 48, 48);
 }
 
 .result-section h2 {
@@ -114,7 +139,7 @@ input {
 
 .overview {
   text-align: center;
-  max-height: 200px;
+  max-height: 150px;
   display: inline-block;
   overflow-y: auto;
   padding: 10px;
@@ -136,6 +161,7 @@ input {
 
 .attori {
   color: white;
+  font-size: 14px;
 }
 
 .genere {
@@ -145,19 +171,23 @@ input {
 .generi {
   margin-top: 10px;
   color: white;
-  font-size: 20px;
+  font-size: 14px;
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   flex-wrap: wrap;
 }
 
 .generi li {
-  width: calc(100% / 6);
-  padding: 8px;
+  width: 100px;
+  padding: 5px;
   list-style: none;
   border: 1px solid white;
+  border-radius: 10px;
   margin: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .generi li:hover {

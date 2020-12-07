@@ -44,7 +44,85 @@
         </div>
       </header>
 
-      <!-- Popular movies visibile on home-page disappearing on search -->
+      <!-- Navigation section -->
+      <nav id="nav">
+        <div id="nav-home" class="nav-item" @click="selezHome">
+          <h4>Home</h4>
+        </div>
+        <div id="nav-movies" class="nav-item" @click="selezMovies">
+          <h4>Movies</h4>
+        </div>
+        <div id="nav-shows" class="nav-item" @click="selezShows">
+          <h4>Shows</h4>
+        </div>
+      </nav>
+
+      <!-- Home -->
+      <!-- Trending week visibile on home-page disappearing on search -->
+      <main class="result-section" id="trending-all" v-if="homeIsVisible">
+        <h2>Trending</h2>
+        <!-- risultati -->
+        <div
+          class="results"
+          v-for="(movie, indice) in trendingAll"
+          @mouseover="provaHover(movie, indice)"
+          @mouseleave="esciHover(movie, indice)"
+          @mouseenter="filterMovies(movie.id)"
+        >
+          <img
+            class="poster"
+            :src="posterPath + movie.poster_path"
+            alt="poster"
+            v-show="movie.poster_path !== null"
+          />
+          <img
+            class="no-poster"
+            v-show="movie.poster_path === null"
+            :src="noPoster"
+            alt="no poster"
+          />
+
+          <div class="info" :class="indexMovies === indice ? 'hover' : 'none' ">
+            <div class="titolo">
+              <h4>Titolo: <span class="span">{{movie.title}}</span></h4>
+              <h5>
+                Titolo originale:
+                <span class="span">{{movie.original_title}}</span>
+              </h5>
+            </div>
+            <img class="flag" :src="whatFlag(movie)" alt="flag" />
+            <div class="voto">
+              <span>Voto:</span>
+              <i
+                v-for="(items, index) in 5"
+                :class="(Math.ceil(movie.vote_average / 2) > index) ? 'star' : ''"
+                class="fas fa-star"
+              ></i>
+            </div>
+            <div class="attori-c">
+              Attori:
+              <p
+                v-if="actors !== undefined"
+                class="attori"
+                v-for="actors in actorsMovies"
+              >
+                {{actors.name}}
+              </p>
+            </div>
+            <div class="genere-c">
+              Genere:
+              <span class="genere" v-for="genre in moviesGenres">
+                {{ genre.name }}
+              </span>
+            </div>
+            <div class="overview-c">
+              Overview: <span class="overview"> {{ movie.overview }} </span>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- Popular Movies disappearing on search -->
       <main class="result-section" id="popular-movies" v-if="popMoviesVisible">
         <h2>Popular Movies</h2>
         <!-- genres filter  popular movies -->
@@ -95,13 +173,13 @@
             </div>
             <div class="attori-c">
               Attori:
-              <span
+              <p
                 v-if="actors !== undefined"
                 class="attori"
                 v-for="actors in actorsMovies"
               >
                 {{actors.name}}
-              </span>
+              </p>
             </div>
             <div class="genere-c">
               Genere:
@@ -158,13 +236,13 @@
             </div>
             <div class="attori-c">
               Attori:
-              <span
+              <p
                 v-if="actors !== undefined"
                 class="attori"
                 v-for="actors in actorsMovies"
               >
                 {{ actors.name }}
-              </span>
+              </p>
             </div>
             <div class="genere-c">
               Genere:
@@ -229,13 +307,13 @@
             </div>
             <div class="attori-c">
               Attori:
-              <span
+              <p
                 v-if="actors !== undefined"
                 class="attori"
                 v-for="actors in actorsShows"
               >
                 {{ actors.name }}
-              </span>
+              </p>
             </div>
             <div class="genere-c">
               Genere:
@@ -290,13 +368,13 @@
             </div>
             <div class="attori-c">
               Attori:
-              <span
+              <p
                 v-if="actors !== undefined"
                 class="attori"
                 v-for="actors in actorsShows"
               >
                 {{ actors.name }}
-              </span>
+              </p>
             </div>
             <div class="genere-c">
               Genere:
