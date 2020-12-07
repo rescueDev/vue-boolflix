@@ -69,11 +69,13 @@ var app = new Vue({
       if (this.searchInput !== "") {
         axios
           .get(movieDb, {
-            params: { api_key: this.apiKey, query: this.searchInput },
+            params: {
+              api_key: this.apiKey,
+              query: this.searchInput,
+            },
           })
           .then((response) => {
             const results = response.data.results;
-
             //salvo i risultati nell'array
             this.moviesArray = results;
             //aggiungo una proprietà ad ogni elemento per controllare l hover
@@ -93,11 +95,16 @@ var app = new Vue({
           });
         axios
           .get(showsDb, {
-            params: { api_key: this.apiKey, query: this.searchInput },
+            params: {
+              api_key: this.apiKey,
+              query: this.searchInput,
+            },
           })
           .then((response) => {
             const results = response.data.results;
+            //salvo i risultati nell'array
             this.showsArray = results;
+            // aggiungo la proprietà hover per ogni elemento per controllare hover del mouse
             this.showsArray.forEach((element) => {
               element.hover = false;
             });
@@ -241,6 +248,7 @@ var app = new Vue({
       show.hover = !show.hover;
       this.indexShows = "";
     },
+    //al click del logo boolflix ricarica la pagina
     reload() {
       location.reload();
     },
