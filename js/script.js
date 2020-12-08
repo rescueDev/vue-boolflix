@@ -153,6 +153,7 @@ var app = new Vue({
           for (let i = 0; i < 5; i++) {
             this.actorsMovies.push(response.data.credits.cast[i]);
           }
+          //salvo i generi per ogni film
           this.moviesGenres = response.data.genres;
         });
     },
@@ -174,12 +175,13 @@ var app = new Vue({
           for (let i = 0; i < 5; i++) {
             this.actorsShows.push(response.data.credits.cast[i]);
           }
+          //salvo i generi per ogni show
           this.showsGenres = response.data.genres;
         });
     },
     //filtro film per generi
     filtroFilmGenere(id) {
-      //chiamata per ottenere dettagli da id film
+      //chiamata per ottenere dettagli da id genere
       axios
         .get(
           "https://api.themoviedb.org/3/discover/movie?api_key=" +
@@ -193,7 +195,7 @@ var app = new Vue({
     },
     //filtro show per generi
     filtroSerieGenere(id) {
-      //chiamata per ottenere dettagli da id serie tv
+      //chiamata per ottenere dettagli da id genere
       axios
         .get(
           "https://api.themoviedb.org/3/discover/tv?api_key=" +
