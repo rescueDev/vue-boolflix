@@ -22,6 +22,7 @@ const showsDbGenres = "https://api.themoviedb.org/3/genre/tv/list";
 var app = new Vue({
   el: "#app",
   data: {
+    hmbMenu: false,
     searchInput: "",
     selected: "",
     apiKey: "a7c4877ed2ef5089283e2a5845b4c723",
@@ -62,6 +63,10 @@ var app = new Vue({
     mostraGeneriShows: false,
   },
   methods: {
+    hmbToggle() {
+      this.hmbMenu = !this.hmbMenu;
+    },
+
     //funzione che chiama dall'api sia i film che gli shows
     searchFilm() {
       this.popMoviesVisible = false;

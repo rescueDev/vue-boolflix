@@ -29,6 +29,19 @@
   <body>
     <!-- Contenitore app vue -->
     <div id="app">
+      <div class="menu-mobile">
+        <nav class="nav-mobile">
+          <div id="nav-home" class="nav-item" @click="selezHome">
+            <h4>Home</h4>
+          </div>
+          <div id="nav-movies" class="nav-item" @click="selezMovies">
+            <h4>Movies</h4>
+          </div>
+          <div id="nav-shows" class="nav-item" @click="selezShows">
+            <h4>Shows</h4>
+          </div>
+        </nav>
+      </div>
       <!-- Header con logo e ricerca -->
       <header>
         <div id="logo" @click="reload">
